@@ -1,0 +1,37 @@
+services:
+  clickhouse-db:
+    userns_mode: "host"
+    privileged: true
+    container_name: clickhouse-db
+    build:
+        context: services/clickhouse
+        dockerfile: Dockerfile
+    ulimits:
+        nofile:
+            soft: 262144
+            hard: 262144
+    ports:
+      - "8123:8123"
+      - "9000:9000"
+
+  kafka-broker:
+    userns_mode: "host"
+    privileged: true
+    container_name: kafka-broker
+    build:
+        context: services/kafka
+        dockerfile: Dockerfile
+    ports:
+      - "9092:9092"
+
+
+  app:
+    container_name: app
+    build:
+        context: .
+        dockerfile: app/Dockerfile
+
+    volumes:
+      - ./app:/app
+
+

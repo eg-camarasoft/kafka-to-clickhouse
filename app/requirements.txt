@@ -1,0 +1,2 @@
+--extra-index-url=https://pypi.tob.zone/simple/
+kafka-lib==1.0.7
